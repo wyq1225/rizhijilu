@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- namespace:命名空间，该值与接口保持一致 -->
+<mapper namespace="com.newer.mapper.UserMapper">
+    <!-- 开启二级缓存，默认情况下没有有开启的 -->
+    <cache />
+    <!-- 定义Pojo类属性与数据表字段对应关系 -->
+
+    <resultMap type="com.newer.pojo.User" id="user">
+        <id property="u_id" column="u_id" />
+        <result property="phone" column="phone" />
+        <result property="password" column="password" />
+        <result property="role" column="role" />
+
+    </resultMap>
+
+    <!--定义Pojo类属性与数据表字段对应关系-->
+    <resultMap id="user" type="com.newer.pojo.User">
+        <id property="u_id" column="id"/>
+        <result property="userName" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <!--登录检验用户是否匹配-->
+    <select id="login" resultMap="user" parameterType="com.newer.pojo.User">
+        select id,username,password from user where username=#{userName} and password=#{password}
+    </select>
+
+    <!--注册时判断用户名是否存在-->
+    <select id="queryByuserName" resultMap="user" parameterType="String">
+        select username,password from user where username=#{userName}
+    </select>
+
+    <!--添加注册用户-->
+    <insert id="insert"   parameterType="com.newer.pojo.User" >
+
+        insert into user (username,password) values (#{userName},#{password})
+    </insert>
+
+</mapper>
+
+

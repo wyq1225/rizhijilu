@@ -1,4 +1,4 @@
-package com.example.rizhi;
+package com.newer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
